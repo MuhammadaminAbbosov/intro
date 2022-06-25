@@ -4,6 +4,7 @@ import { ReactComponent as Logo } from "../../../assets/icons/logo.svg"
 import { ReactComponent as IconArrowDown } from "../../../assets/icons/icon-arrow-down.svg"
 import { ReactComponent as IconArrowUp } from "../../../assets/icons/icon-arrow-up.svg"
 import MenuIcon from "../../../assets/icons/icon-menu.svg"
+import ClsoeIcon from "../../../assets/icons/icon-close-menu.svg"
 import Dropdown from '../../../Components/Dropdown'
 
 import IconTodo from "../../../assets/icons/icon-todo.svg"
@@ -14,6 +15,7 @@ import IconPlaning from "../../../assets/icons/icon-planning.svg"
 const Header = () => {
     const [handleDropdown, setHandleDropdown] = useState(false)
     const [handleDropdown2, setHandleDropdown2] = useState(false)
+    const [menu, setMenu] = useState(false)
 
     const handleClick = (id) => {
         if (id === 1) {
@@ -55,6 +57,10 @@ const Header = () => {
             text: "Blog"
         }
     ]
+
+    const handleMenu = () => {
+        setMenu(!menu)
+    }
     return (
         <Wrapper>
             <Logo />
@@ -68,7 +74,7 @@ const Header = () => {
                 </li>
                 <li className='nav-item' onClick={() => handleClick(2)}>
                     <span>
-                        <p className='item-text'>Compnay</p>
+                        <p className='item-text'>Company</p>
                         {handleDropdown2 ? <IconArrowUp /> : <IconArrowDown />}
                     </span>
                     {handleDropdown2 && <Dropdown options={option2} />}
@@ -86,7 +92,61 @@ const Header = () => {
                 <button>Register</button>
             </Login>
 
-            <img src={MenuIcon} className="menu-icon" alt="" />
+            <img src={menu ? ClsoeIcon : MenuIcon} className="menu-icon" onClick={() => handleMenu()} alt="" />
+
+            {
+                menu && <Sidebar className='sidebar'>
+                    <div className="overlay" onClick={() => { setMenu(false); setHandleDropdown(false); setHandleDropdown2(false) }}>
+
+                    </div>
+                    <ul className='sidebar-ul'>
+                        <li className='nav-item' onClick={() => handleClick(1)}>
+                            <span>
+                                <p className='item-text'>Features</p>
+                                {handleDropdown ? <IconArrowUp /> : <IconArrowDown />}
+                            </span>
+                            {
+                                handleDropdown && <div className="item-contents">
+                                    {
+                                        option1.map(item => <div className='item-content'>
+                                            <img src={item.icon} alt="" />
+                                            <p>{item.text}</p>
+                                        </div>)
+                                    }
+                                </div>
+                            }
+                        </li>
+                        <li className='nav-item' onClick={() => handleClick(2)}>
+                            <span>
+                                <p className='item-text'>Company</p>
+                                {handleDropdown2 ? <IconArrowUp /> : <IconArrowDown />}
+                            </span>
+                            {
+                                handleDropdown2 && <div className="item-contents">
+                                    {
+                                        option2.map(item => <div className='item-content'>
+                                            <p>{item.text}</p>
+                                        </div>)
+                                    }
+                                </div>
+                            }
+                        </li>
+                        <li className='nav-item'>
+                            <p className='item-text'>Careers</p>
+                        </li>
+                        <li className='nav-item'>
+                            <p className='item-text'>About</p>
+                        </li>
+
+                        <li className='buttons'>
+                            <button >Login</button>
+                            <button>Register</button>
+                        </li>
+                    </ul>
+
+
+                </Sidebar>
+            }
         </Wrapper>
     )
 }
@@ -100,6 +160,7 @@ const Wrapper = styled.div`
     @media (max-width: 500px) {
         justify-content: space-between;
         padding: 25px 17px;
+
     }
 
     .nav {
@@ -132,6 +193,9 @@ const Wrapper = styled.div`
 
     .menu-icon {
         display: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 111;
         @media (max-width: 500px) {
             display: block;
         }
@@ -167,6 +231,78 @@ const Login = styled.div`
             }
         }
     }
+`
+
+const Sidebar = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+   .sidebar-ul {
+       background-color: white;
+       padding: 80px 20px 40px;
+       list-style: none;
+       display: flex;
+       flex-direction: column;
+       gap: 30px;
+       li {
+           cursor: pointer;
+            color: #686868;
+
+           span {
+               display: grid;
+               grid-template-columns: 1fr 1fr;
+               align-items: center;
+           }
+
+           .item-contents {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .item-content {
+                    display: flex;
+                    align-items: center;
+                    font-size: 14px;
+                    padding: 10px  0 0 25px;
+
+                    img {
+                        width: 17px;
+                        margin-right: 15px;
+                    }
+                }
+           }
+
+           &.buttons {
+               margin-top: auto;
+               button {
+                   display: block;
+                   margin: 0 auto;
+                   width: 100%;
+                   font-size: 16px;
+                   cursor: pointer;
+                   padding: 15px;
+                   background-color: transparent;
+                   border-radius: 12px;
+                   border: 1px solid transparent;
+                   color: #686868;
+                   &:last-child {
+                       border: 1px solid #686868;
+                   }
+               }
+           }
+       }
+   }
+
 `
 
 export default Header

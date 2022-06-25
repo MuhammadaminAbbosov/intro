@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import MainImgDesktop from "../../../assets/images/image-hero-desktop.png"
 import MainImgMobile from "../../../assets/images/image-hero-mobile.png"
@@ -11,6 +11,7 @@ import CompanyMaker from "../../../assets/icons/client-maker.svg"
 
 const Main = () => {
     const companies = [CompanyDatabiz, CompanyAudioPhile, CompanyMeet, CompanyMaker]
+
     return (
         <Wrapper>
             <div className="main__left">
@@ -118,8 +119,8 @@ const Wrapper = styled.div`
             align-items: center;
             gap: 40px;
             @media (max-width: 500px) {
-                display: grid;
-                grid-template-columns: repeat(4, 75px);
+                gap: 25px;
+                width: 100%;
             }
         }
     }
@@ -142,7 +143,7 @@ const Wrapper = styled.div`
             @media (max-width: 500px) {
                 &.mainImgMobile {
                     display: block;
-                    width: 100%;
+                    margin: auto;
                 }
 
                 &.mainImgDesktop {
