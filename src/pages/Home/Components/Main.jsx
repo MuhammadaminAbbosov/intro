@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 import MainImgDesktop from "../../../assets/images/image-hero-desktop.png"
 import MainImgMobile from "../../../assets/images/image-hero-mobile.png"
