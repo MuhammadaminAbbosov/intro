@@ -15,6 +15,7 @@ const Home = () => {
 const Wrapper = styled.div`
     width: 100vw;
     background-color: #FAFAFA;
+    overflow-x: hidden;
 `
 
 export default Home

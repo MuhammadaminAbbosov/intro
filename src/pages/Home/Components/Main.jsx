@@ -118,10 +118,8 @@ const Wrapper = styled.div`
             align-items: center;
             gap: 40px;
             @media (max-width: 500px) {
-                gap: 25px;
-                width: 100%;
                 display: grid;
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(4, 75px);
             }
         }
     }
